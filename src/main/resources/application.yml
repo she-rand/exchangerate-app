@@ -1,0 +1,49 @@
+# application.yml - SpringBoot configuration file
+# YAML is easier to read than properties files
+
+# Server configuration
+server:
+  port: 8080  # Port where our application will run
+  servlet:
+    context-path: /api  # All our endpoints will be prefixed with /api
+
+# Spring configuration
+spring:
+  application:
+    name: exchange-rate-service  # Application name (useful for monitoring)
+  
+  # Jackson JSON configuration
+  jackson:
+    default-property-inclusion: non_null  # Don't include null values in JSON
+    serialization:
+      write-dates-as-timestamps: false  # Use ISO date format instead of timestamps
+  
+  # Cache configuration (we're using simple in-memory cache)
+  cache:
+    type: simple
+    cache-names: exchange-rates
+  
+  # Actuator configuration (for health checks and metrics)
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: health,info,metrics  # Expose these management endpoints
+    endpoint:
+      health:
+        show-details: always
+
+# Logging configuration
+logging:
+  level:
+    com.example.exchangerate: INFO  # Our application logs at INFO level
+    org.springframework.web: DEBUG  # Spring web logs at DEBUG level (useful for development)
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"  # Simple log format
+
+# Custom application properties (we can add our own!)
+app:
+  exchange-rate:
+    cache-ttl: 300  # Cache time-to-live in seconds (5 minutes)
+    timeout: 5000   # HTTP timeout in milliseconds
+    max-retries: 3  # Number of retries for failed API calls
