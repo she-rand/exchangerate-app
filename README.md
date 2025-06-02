@@ -618,4 +618,3 @@ SpringBoot automatically configures:
 - `@MockBean`: Creates mock beans in Spring context
 - `@ExtendWith(MockitoExtension.class)`: Enables Mockito in JUnit 5
 
-This project serves as a practical introduction to modern Java web development with SpringBoot!
